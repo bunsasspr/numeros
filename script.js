@@ -105,26 +105,38 @@ function getLetterValue(letter) {
 }
 
 function calculateNameNumber(name) {
-  const letters = name.replace(/[^a-z]/gi, '');
+  const normalizedName = removeDiacritics(name);
+  const letters = normalizedName.replace(/[^a-z]/gi, '');
   const total = letters.split('').reduce((acc, char) => acc + getLetterValue(char), 0);
   const reduced = reduceSingle(total);
-  return { total, reduced, letters };
+  return { total, reduced, letters, normalizedName };
 }
 
 function calculateSoulUrge(name) {
-  const vowels = name.replace(/[^aeiou]/gi, '');
+  const normalizedName = removeDiacritics(name);
+  const vowels = normalizedName.replace(/[^aeiou]/gi, '');
   const total = vowels.split('').reduce((acc, char) => acc + getLetterValue(char), 0);
-  return { total, reduced: reduceSingle(total), letters: vowels };
+  return { total, reduced: reduceSingle(total), letters: vowels, normalizedName };
 }
 
 function calculatePersonality(name) {
-  const consonants = name.replace(/[aeiou\s]/gi, '');
+  const normalizedName = removeDiacritics(name);
+  const consonants = normalizedName.replace(/[aeiou\s]/gi, '');
   const total = consonants.split('').reduce((acc, char) => acc + getLetterValue(char), 0);
-  return { total, reduced: reduceSingle(total), letters: consonants };
+  return { total, reduced: reduceSingle(total), letters: consonants, normalizedName };
 }
 
 function formatName(value) {
   return value.trim().replace(/\s+/g, ' ');
+}
+
+function removeDiacritics(str) {
+  if (!str) return '';
+  return String(str)
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/đ/g, 'd')
+    .replace(/Đ/g, 'D');
 }
 
 function showLoading() {
