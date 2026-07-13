@@ -1,9 +1,6 @@
 {
   "name": "numeros",
   "version": "1.0.0",
-  "description": "A mystical single-page numerology calculator",
-  "main": "server.js",
-  "scripts": {
-    "start": "node server.js"
-  }
+  "private": true,
+  "description": "A mystical single-page numerology calculator"
 }

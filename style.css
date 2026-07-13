@@ -84,11 +84,44 @@ body {
   margin-bottom: 2rem;
 }
 
+.hero__top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
 .hero__badge,
 .eyebrow {
   text-transform: uppercase;
   letter-spacing: 0.34em;
   font-size: 0.76rem;
+  color: var(--accent-2);
+}
+
+.lang-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.7rem;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.lang-toggle__chip {
+  opacity: 0.6;
+  transition: opacity 180ms ease, color 180ms ease;
+}
+
+.lang-toggle__chip.is-active {
+  opacity: 1;
   color: var(--accent-2);
 }
 
@@ -201,18 +234,6 @@ input:focus {
   background: linear-gradient(135deg, var(--accent), #6338ff);
   color: white;
   box-shadow: 0 10px 30px rgba(114, 90, 255, 0.36);
-}
-
-.btn--secondary {
-  background: rgba(255, 255, 255, 0.08);
-  color: var(--text);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-}
-
-.btn--ghost {
-  background: transparent;
-  color: var(--accent-2);
-  padding: 0.55rem 0.8rem;
 }
 
 .progress {
@@ -335,8 +356,7 @@ input:focus {
 
 .interpretation-card p,
 .compatibility-card p,
-.calc-list p,
-.history-item p {
+.calc-list p {
   color: var(--muted);
   line-height: 1.6;
 }
@@ -350,42 +370,18 @@ input:focus {
   color: var(--accent-2);
 }
 
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.8rem;
-  margin-bottom: 0.65rem;
-}
-
-.history-list {
-  display: grid;
-  gap: 0.8rem;
-}
-
-.history-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.11);
-  padding: 0.9rem 1rem;
-  border-radius: 0.95rem;
-  background: rgba(255, 255, 255, 0.05);
-  cursor: pointer;
-  transition: transform 180ms ease, border-color 180ms ease;
-}
-
-.history-item:hover {
-  transform: translateY(-2px);
-  border-color: rgba(255, 255, 255, 0.24);
-}
-
 .footer {
   text-align: center;
   padding: 0 1rem 2rem;
   color: rgba(255, 255, 255, 0.65);
   position: relative;
   z-index: 1;
+}
+
+summary {
+  cursor: pointer;
+  color: var(--accent-2);
+  font-weight: 600;
 }
 
 @keyframes glow {
@@ -435,5 +431,9 @@ input:focus {
   .card__header {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .hero__top {
+    justify-content: flex-start;
   }
 }

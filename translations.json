@@ -1,0 +1,232 @@
+{
+  "en": {
+    "siteTitle": "Numeros",
+    "heroBadge": "Cosmic Insight • Numerology",
+    "heroSubtitle": "Reveal the hidden rhythm of your life through destiny, heart, and personality numbers.",
+    "formTitle": "Your celestial reading",
+    "formSubtitle": "Enter your birth details to unveil your cosmic blueprint.",
+    "fullNameLabel": "Full birth name",
+    "fullNamePlaceholder": "Example: Maya Rose Carter",
+    "birthDateLabel": "Birth date",
+    "currentNameLabel": "Current name",
+    "currentNameHint": "optional",
+    "currentNamePlaceholder": "If different from your birth name",
+    "submitButton": "Calculate my reading",
+    "summaryEyebrow": "Your essence",
+    "summaryTitle": "Reading summary",
+    "summaryPillWaiting": "Awaiting cosmic pattern",
+    "lifePathLabel": "Life Path",
+    "destinyLabel": "Destiny",
+    "soulLabel": "Soul Urge",
+    "personalityLabel": "Personality",
+    "coreNumbersTitle": "Core numbers",
+    "coreNumbersSubtitle": "Each number carries a luminous message.",
+    "interpretationsTitle": "Interpretations",
+    "interpretationsSubtitle": "Delve into the energy woven through your path.",
+    "compatibilityTitle": "Compatibility whisper",
+    "compatibilitySubtitle": "Simple energetic pairings for your life path.",
+    "calculationTitle": "How we calculated it",
+    "footerNote": "For entertainment purposes only.",
+    "lifePathSummaryText": "Your life path reveals your mission.",
+    "numberCards": {
+      "lifePathTitle": "Life Path",
+      "lifePathText": "Month {month} • Day {day} • Year {year}",
+      "destinyTitle": "Destiny / Expression",
+      "destinyText": "Calculated from {count} letters in your birth name.",
+      "soulTitle": "Soul Urge",
+      "soulText": "From the vowels in {name}.",
+      "personalityTitle": "Personality",
+      "personalityText": "From the consonants in {name}."
+    },
+    "calculationLabels": {
+      "lifePath": "Life path",
+      "destiny": "Destiny",
+      "soul": "Soul urge",
+      "personality": "Personality"
+    },
+    "compatibilityLabel": "Compatibility",
+    "compatibilityIntro": "Your life path {number} resonates especially with {pairings}.",
+    "compatibilityNote": "This is a brief energetic pairing, not a fixed destiny. The deeper your self-awareness, the more meaningful the connection becomes.",
+    "alerts": {
+      "missingFields": "Please provide your full birth name and birth date.",
+      "futureDate": "Birth date cannot be in the future."
+    },
+    "interpretations": {
+      "1": {
+        "title": "The Pioneer",
+        "description": "You carry the spark of initiation. Your path favors courage, independence, and the courage to move first when others hesitate.",
+        "compatibility": "Best paired with life paths 3, 5, and 7 for energetic balance."
+      },
+      "2": {
+        "title": "The Harmonizer",
+        "description": "Partnership, softness, and grace shape your journey. Your strength lies in diplomacy, empathy, and building beauty through connection.",
+        "compatibility": "Flows beautifully with 1, 4, and 8."
+      },
+      "3": {
+        "title": "The Artist",
+        "description": "Creativity, expression, and social warmth are your natural gifts. You thrive when your voice, imagination, and joy are shared openly.",
+        "compatibility": "Pairs well with 1, 5, and 9."
+      },
+      "4": {
+        "title": "The Builder",
+        "description": "You are anchored in structure, discipline, and steady progress. Your path rewards patience, reliability, and turning dreams into lasting form.",
+        "compatibility": "Goes well with 2, 6, and 8."
+      },
+      "5": {
+        "title": "The Adventurer",
+        "description": "Freedom, curiosity, and versatility guide your spirit. Your journey is filled with movement, learning, and bold experiences.",
+        "compatibility": "Often shines with 1, 3, and 7."
+      },
+      "6": {
+        "title": "The Nurturer",
+        "description": "Love, care, and responsibility are central to your path. You bring warmth, beauty, and meaningful service to the world around you.",
+        "compatibility": "Finds harmony with 2, 4, and 9."
+      },
+      "7": {
+        "title": "The Seeker",
+        "description": "You are drawn to wisdom, mystery, and inner truth. Reflection and depth become your most powerful tools for growth.",
+        "compatibility": "Pairs well with 1, 5, and 7."
+      },
+      "8": {
+        "title": "The Powerhouse",
+        "description": "Ambition, leadership, and material mastery are part of your journey. You are strongest when you balance power with integrity.",
+        "compatibility": "Often resonates with 2, 4, and 6."
+      },
+      "9": {
+        "title": "The Humanitarian",
+        "description": "Compassion and vision define your path. You are here to serve, inspire, and leave a broad, uplifting imprint on others.",
+        "compatibility": "Works beautifully with 3, 6, and 7."
+      },
+      "11": {
+        "title": "The Intuitive Master",
+        "description": "You carry heightened intuition and spiritual sensitivity. Your task is to turn inspiration into meaningful insight and luminous service.",
+        "compatibility": "Best with 2, 7, and 9."
+      },
+      "22": {
+        "title": "The Master Builder",
+        "description": "A rare blend of vision and practicality, you are meant to build something lasting and transformative. Your mission is bold yet grounded.",
+        "compatibility": "Finds balance with 4, 6, and 8."
+      },
+      "33": {
+        "title": "The Master Teacher",
+        "description": "Your life is shaped by compassion, healing, and spiritual leadership. You embody the gift of teaching through example and deep care.",
+        "compatibility": "Often resonates with 3, 6, and 9."
+      }
+    }
+  },
+  "vi": {
+    "siteTitle": "Numeros",
+    "heroBadge": "Ánh sáng vũ trụ • Numerology",
+    "heroSubtitle": "Khám phá nhịp điệu ẩn giấu của cuộc đời qua những con số định mệnh, trái tim và tính cách.",
+    "formTitle": "Lời đọc của bạn",
+    "formSubtitle": "Nhập thông tin sinh nhật để mở ra bản đồ vũ trụ riêng của bạn.",
+    "fullNameLabel": "Họ và tên khai sinh đầy đủ",
+    "fullNamePlaceholder": "Ví dụ: Maya Rose Carter",
+    "birthDateLabel": "Ngày sinh",
+    "currentNameLabel": "Tên hiện tại",
+    "currentNameHint": "tùy chọn",
+    "currentNamePlaceholder": "Nếu tên hiện tại khác tên khai sinh",
+    "submitButton": "Tính lời đọc của tôi",
+    "summaryEyebrow": "Bản chất của bạn",
+    "summaryTitle": "Tóm tắt lời đọc",
+    "summaryPillWaiting": "Đang chờ mẫu số vũ trụ",
+    "lifePathLabel": "Đường đời",
+    "destinyLabel": "Số định mệnh",
+    "soulLabel": "Số linh hồn",
+    "personalityLabel": "Số tính cách",
+    "coreNumbersTitle": "Các con số cốt lõi",
+    "coreNumbersSubtitle": "Mỗi con số mang theo một thông điệp rực sáng.",
+    "interpretationsTitle": "Giải thích",
+    "interpretationsSubtitle": "Khám phá năng lượng được dệt nên trong con đường của bạn.",
+    "compatibilityTitle": "Nhịp tương hợp",
+    "compatibilitySubtitle": "Những cặp đôi năng lượng đơn giản cho đường đời của bạn.",
+    "calculationTitle": "Cách chúng tôi tính",
+    "footerNote": "Chỉ dành cho mục đích giải trí.",
+    "lifePathSummaryText": "Đường đời của bạn tiết lộ sứ mệnh của mình.",
+    "numberCards": {
+      "lifePathTitle": "Đường đời",
+      "lifePathText": "Tháng {month} • Ngày {day} • Năm {year}",
+      "destinyTitle": "Định mệnh / Biểu đạt",
+      "destinyText": "Được tính từ {count} chữ cái trong tên khai sinh của bạn.",
+      "soulTitle": "Linh hồn",
+      "soulText": "Từ các nguyên âm trong {name}.",
+      "personalityTitle": "Tính cách",
+      "personalityText": "Từ các phụ âm trong {name}."
+    },
+    "calculationLabels": {
+      "lifePath": "Đường đời",
+      "destiny": "Định mệnh",
+      "soul": "Linh hồn",
+      "personality": "Tính cách"
+    },
+    "compatibilityLabel": "Tương hợp",
+    "compatibilityIntro": "Đường đời {number} của bạn đặc biệt đồng điệu với {pairings}.",
+    "compatibilityNote": "Đây là một cặp đôi năng lượng ngắn gọn, không phải số mệnh cố định. Bạn càng tự nhận thức sâu sắc thì sự kết nối càng có ý nghĩa hơn.",
+    "alerts": {
+      "missingFields": "Vui lòng cung cấp họ tên khai sinh đầy đủ và ngày sinh.",
+      "futureDate": "Ngày sinh không được ở tương lai."
+    },
+    "interpretations": {
+      "1": {
+        "title": "Người Khởi Tạo",
+        "description": "Bạn mang trong mình tia lửa khởi đầu. Con đường của bạn ưu tiên dũng khí, độc lập và việc bước đi trước khi người khác do dự.",
+        "compatibility": "Tương hợp tốt nhất với đường đời 3, 5 và 7 để giữ sự cân bằng năng lượng."
+      },
+      "2": {
+        "title": "Người Gắn Kết",
+        "description": "Sự hợp tác, mềm mại và duyên dáng định hình hành trình của bạn. Sức mạnh của bạn nằm ở sự ngoại giao, đồng cảm và xây dựng vẻ đẹp qua mối liên hệ.",
+        "compatibility": "Trôi chảy rất đẹp với 1, 4 và 8."
+      },
+      "3": {
+        "title": "Người Nghệ Sĩ",
+        "description": "Sáng tạo, biểu đạt và sự ấm áp xã hội là tài năng tự nhiên của bạn. Bạn phát triển khi tiếng nói, trí tưởng tượng và niềm vui được chia sẻ công khai.",
+        "compatibility": "Hòa hợp tốt với 1, 5 và 9."
+      },
+      "4": {
+        "title": "Người Xây Dựng",
+        "description": "Bạn được neo giữ bởi cấu trúc, kỷ luật và tiến bộ bền bỉ. Con đường của bạn được đền đáp bằng sự kiên nhẫn, đáng tin cậy và biến ước mơ thành hình thức bền vững.",
+        "compatibility": "Phù hợp với 2, 6 và 8."
+      },
+      "5": {
+        "title": "Người Phiêu Lưu",
+        "description": "Tự do, tò mò và linh hoạt dẫn dắt tinh thần của bạn. Hành trình của bạn đầy chuyển động, học hỏi và những trải nghiệm táo bạo.",
+        "compatibility": "Thường tỏa sáng cùng 1, 3 và 7."
+      },
+      "6": {
+        "title": "Người Chăm Sóc",
+        "description": "Tình yêu, sự quan tâm và trách nhiệm là trung tâm của con đường bạn. Bạn mang đến ấm áp, vẻ đẹp và sự phục vụ có ý nghĩa cho thế giới xung quanh.",
+        "compatibility": "Tìm được sự hài hòa với 2, 4 và 9."
+      },
+      "7": {
+        "title": "Người Tìm Kiếm",
+        "description": "Bạn bị kéo về phía tri thức, bí ẩn và chân lý nội tâm. Sự phản chiếu và chiều sâu trở thành công cụ phát triển mạnh mẽ nhất của bạn.",
+        "compatibility": "Phù hợp với 1, 5 và 7."
+      },
+      "8": {
+        "title": "Người Quyền Năng",
+        "description": "Tham vọng, lãnh đạo và thành công vật chất là một phần của hành trình bạn. Bạn mạnh nhất khi cân bằng sức mạnh với phẩm giá.",
+        "compatibility": "Thường rung hợp với 2, 4 và 6."
+      },
+      "9": {
+        "title": "Người Nhân Bản",
+        "description": "Lòng trắc ẩn và tầm nhìn định nghĩa con đường của bạn. Bạn ở đây để phục vụ, truyền cảm hứng và để lại dấu ấn rộng lớn, nâng đỡ người khác.",
+        "compatibility": "Hoạt động rất đẹp với 3, 6 và 7."
+      },
+      "11": {
+        "title": "Thầy Tưởng Tượng",
+        "description": "Bạn mang theo trực giác và nhạy cảm tâm linh tăng cao. Nhiệm vụ của bạn là biến cảm hứng thành hiểu biết có ý nghĩa và phục vụ sáng rực.",
+        "compatibility": "Tốt nhất với 2, 7 và 9."
+      },
+      "22": {
+        "title": "Người Xây Dựng Thần",
+        "description": "Sự kết hợp hiếm có giữa tầm nhìn và thực tế, bạn được sinh ra để tạo nên điều gì đó bền vững và biến đổi. Sứ mệnh của bạn dũng cảm nhưng vững vàng.",
+        "compatibility": "Tìm được sự cân bằng với 4, 6 và 8."
+      },
+      "33": {
+        "title": "Người Dạy Giáo Thần",
+        "description": "Đời bạn được định hình bởi lòng từ bi, chữa lành và lãnh đạo tâm linh. Bạn mang trong mình món quà dạy dỗ bằng chính việc sống và lòng quan tâm sâu sắc.",
+        "compatibility": "Thường rung hợp với 3, 6 và 9."
+      }
+    }
+  }
+}

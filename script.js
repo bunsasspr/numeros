@@ -27,81 +27,6 @@ const letterChart = {
   Z: 8,
 };
 
-const interpretations = {
-  1: {
-    title: 'The Pioneer',
-    description:
-      'You carry the spark of initiation. Your path favors courage, independence, and the courage to move first when others hesitate.',
-    compatibility: 'Best paired with life paths 3, 5, and 7 for energetic balance.',
-  },
-  2: {
-    title: 'The Harmonizer',
-    description:
-      'Partnership, softness, and grace shape your journey. Your strength lies in diplomacy, empathy, and building beauty through connection.',
-    compatibility: 'Flows beautifully with 1, 4, and 8.',
-  },
-  3: {
-    title: 'The Artist',
-    description:
-      'Creativity, expression, and social warmth are your natural gifts. You thrive when your voice, imagination, and joy are shared openly.',
-    compatibility: 'Pairs well with 1, 5, and 9.',
-  },
-  4: {
-    title: 'The Builder',
-    description:
-      'You are anchored in structure, discipline, and steady progress. Your path rewards patience, reliability, and turning dreams into lasting form.',
-    compatibility: 'Goes well with 2, 6, and 8.',
-  },
-  5: {
-    title: 'The Adventurer',
-    description:
-      'Freedom, curiosity, and versatility guide your spirit. Your journey is filled with movement, learning, and bold experiences.',
-    compatibility: 'Often shines with 1, 3, and 7.',
-  },
-  6: {
-    title: 'The Nurturer',
-    description:
-      'Love, care, and responsibility are central to your path. You bring warmth, beauty, and meaningful service to the world around you.',
-    compatibility: 'Finds harmony with 2, 4, and 9.',
-  },
-  7: {
-    title: 'The Seeker',
-    description:
-      'You are drawn to wisdom, mystery, and inner truth. Reflection and depth become your most powerful tools for growth.',
-    compatibility: 'Pairs well with 1, 5, and 7.',
-  },
-  8: {
-    title: 'The Powerhouse',
-    description:
-      'Ambition, leadership, and material mastery are part of your journey. You are strongest when you balance power with integrity.',
-    compatibility: 'Often resonates with 2, 4, and 6.',
-  },
-  9: {
-    title: 'The Humanitarian',
-    description:
-      'Compassion and vision define your path. You are here to serve, inspire, and leave a broad, uplifting imprint on others.',
-    compatibility: 'Works beautifully with 3, 6, and 7.',
-  },
-  11: {
-    title: 'The Intuitive Master',
-    description:
-      'You carry heightened intuition and spiritual sensitivity. Your task is to turn inspiration into meaningful insight and luminous service.',
-    compatibility: 'Best with 2, 7, and 9.',
-  },
-  22: {
-    title: 'The Master Builder',
-    description:
-      'A rare blend of vision and practicality, you are meant to build something lasting and transformative. Your mission is bold yet grounded.',
-    compatibility: 'Finds balance with 4, 6, and 8.',
-  },
-  33: {
-    title: 'The Master Teacher',
-    description:
-      'Your life is shaped by compassion, healing, and spiritual leadership. You embody the gift of teaching through example and deep care.',
-    compatibility: 'Often resonates with 3, 6, and 9.',
-  },
-};
-
 const form = document.getElementById('reading-form');
 const resultsSection = document.getElementById('results');
 const progressBar = document.getElementById('progressBar');
@@ -110,7 +35,6 @@ const numbersGrid = document.getElementById('numbersGrid');
 const interpretationContent = document.getElementById('interpretationContent');
 const compatibilityContent = document.getElementById('compatibilityContent');
 const calcList = document.getElementById('calcList');
-const historyList = document.getElementById('historyList');
 const summaryName = document.getElementById('summaryName');
 const summaryPill = document.getElementById('summaryPill');
 const lifePathMain = document.getElementById('lifePathMain');
@@ -118,10 +42,13 @@ const lifePathText = document.getElementById('lifePathText');
 const destinyMain = document.getElementById('destinyMain');
 const soulMain = document.getElementById('soulMain');
 const personalityMain = document.getElementById('personalityMain');
-const copySummaryBtn = document.getElementById('copySummaryBtn');
-const pdfBtn = document.getElementById('pdfBtn');
-const clearHistoryBtn = document.getElementById('clearHistoryBtn');
+const langToggle = document.getElementById('langToggle');
+const pageTitle = document.getElementById('pageTitle');
 const starsLayer = document.getElementById('stars');
+
+let translations = null;
+let currentLang = localStorage.getItem('numeros-language') || 'en';
+let currentResult = null;
 
 function createStars() {
   const fragment = document.createDocumentFragment();
@@ -216,36 +143,106 @@ function stopLoading(intervalId) {
   }, 450);
 }
 
+function t(path, fallback = '') {
+  if (!translations) return fallback;
+  const langData = translations[currentLang] || translations.en || {};
+  return path.split('.').reduce((acc, key) => acc?.[key], langData) ?? fallback;
+}
+
+function setLanguage(lang) {
+  currentLang = lang;
+  localStorage.setItem('numeros-language', lang);
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-i18n]').forEach((element) => {
+    const text = t(element.dataset.i18n, element.textContent);
+    if (text) {
+      element.textContent = text;
+    }
+  });
+
+  document.querySelectorAll('[data-i18n-placeholder]').forEach((element) => {
+    const placeholder = t(element.dataset.i18nPlaceholder, element.placeholder);
+    if (placeholder) {
+      element.placeholder = placeholder;
+    }
+  });
+
+  const chips = langToggle.querySelectorAll('.lang-toggle__chip');
+  chips.forEach((chip) => {
+    chip.classList.toggle('is-active', chip.dataset.lang === lang);
+  });
+
+  if (pageTitle) {
+    pageTitle.textContent = lang === 'vi'
+      ? 'Numeros | Máy tính numerology huyền bí'
+      : 'Numeros | Mystical Numerology Calculator';
+    document.title = pageTitle.textContent;
+  }
+
+  if (!currentResult) {
+    summaryName.textContent = t('summaryTitle', 'Reading summary');
+    summaryPill.textContent = t('summaryPillWaiting', 'Awaiting cosmic pattern');
+    lifePathText.textContent = t('lifePathSummaryText', 'Your life path reveals your mission.');
+  } else {
+    displayResult(currentResult);
+  }
+}
+
+async function loadTranslations() {
+  try {
+    const response = await fetch('translations.json', { cache: 'no-store' });
+    if (!response.ok) throw new Error('Unable to load translations');
+    translations = await response.json();
+  } catch (error) {
+    console.warn('Translations could not be loaded, using defaults.', error);
+    translations = { en: {}, vi: {} };
+  }
+
+  setLanguage(currentLang);
+}
+
+function getInterpretation(number) {
+  return {
+    title: t(`interpretations.${number}.title`, 'The Path'),
+    description: t(`interpretations.${number}.description`, ''),
+    compatibility: t(`interpretations.${number}.compatibility`, ''),
+  };
+}
+
 function buildInterpretation(number) {
-  const data = interpretations[number];
+  const data = getInterpretation(number);
   return `
     <h3>${data.title}</h3>
     <p>${data.description}</p>
-    <p><strong>Compatibility:</strong> ${data.compatibility}</p>
+    <p><strong>${t('compatibilityLabel', 'Compatibility')}:</strong> ${data.compatibility}</p>
   `;
 }
 
 function renderNumbers(result) {
   const cards = [
     {
-      title: 'Life Path',
+      title: t('numberCards.lifePathTitle', 'Life Path'),
       value: result.lifePath,
-      text: `Month ${result.lifePathDetails.monthReduced} • Day ${result.lifePathDetails.dayReduced} • Year ${result.lifePathDetails.yearReduced}`,
+      text: t('numberCards.lifePathText', 'Month {month} • Day {day} • Year {year}')
+        .replace('{month}', result.lifePathDetails.monthReduced)
+        .replace('{day}', result.lifePathDetails.dayReduced)
+        .replace('{year}', result.lifePathDetails.yearReduced),
     },
     {
-      title: 'Destiny / Expression',
+      title: t('numberCards.destinyTitle', 'Destiny / Expression'),
       value: result.destiny.reduced,
-      text: `Calculated from ${result.destiny.letters.length} letters in your birth name.`,
+      text: t('numberCards.destinyText', 'Calculated from {count} letters in your birth name.')
+        .replace('{count}', result.destiny.letters.length),
     },
     {
-      title: 'Soul Urge',
+      title: t('numberCards.soulTitle', 'Soul Urge'),
       value: result.soul.reduced,
-      text: `From the vowels in ${result.nameInput}.`,
+      text: t('numberCards.soulText', 'From the vowels in {name}.').replace('{name}', result.nameInput),
     },
     {
-      title: 'Personality',
+      title: t('numberCards.personalityTitle', 'Personality'),
       value: result.personality.reduced,
-      text: `From the consonants in ${result.nameInput}.`,
+      text: t('numberCards.personalityText', 'From the consonants in {name}.').replace('{name}', result.nameInput),
     },
   ];
 
@@ -264,10 +261,10 @@ function renderNumbers(result) {
 
 function renderCalculationSteps(result) {
   calcList.innerHTML = `
-    <p><strong>Life path:</strong> ${result.lifePathDetails.monthReduced} + ${result.lifePathDetails.dayReduced} + ${result.lifePathDetails.yearReduced} = ${result.lifePathDetails.combined}</p>
-    <p><strong>Destiny:</strong> ${result.destiny.letters} → ${result.destiny.total} → ${result.destiny.reduced}</p>
-    <p><strong>Soul urge:</strong> ${result.soul.letters || '—'} → ${result.soul.total} → ${result.soul.reduced}</p>
-    <p><strong>Personality:</strong> ${result.personality.letters || '—'} → ${result.personality.total} → ${result.personality.reduced}</p>
+    <p><strong>${t('calculationLabels.lifePath', 'Life path')}:</strong> ${result.lifePathDetails.monthReduced} + ${result.lifePathDetails.dayReduced} + ${result.lifePathDetails.yearReduced} = ${result.lifePathDetails.combined}</p>
+    <p><strong>${t('calculationLabels.destiny', 'Destiny')}:</strong> ${result.destiny.letters} → ${result.destiny.total} → ${result.destiny.reduced}</p>
+    <p><strong>${t('calculationLabels.soul', 'Soul urge')}:</strong> ${result.soul.letters || '—'} → ${result.soul.total} → ${result.soul.reduced}</p>
+    <p><strong>${t('calculationLabels.personality', 'Personality')}:</strong> ${result.personality.letters || '—'} → ${result.personality.total} → ${result.personality.reduced}</p>
   `;
 }
 
@@ -288,56 +285,29 @@ function renderCompatibility(result) {
   else pairings = [3, 6, 9];
 
   compatibilityContent.innerHTML = `
-    <p>Your life path ${lifePath} resonates especially with ${pairings.join(', ')}.</p>
-    <p>This is a brief energetic pairing, not a fixed destiny. The deeper your self-awareness, the more meaningful the connection becomes.</p>
+    <p>${t('compatibilityIntro', 'Your life path {number} resonates especially with {pairings}.')
+      .replace('{number}', lifePath)
+      .replace('{pairings}', pairings.join(', '))}</p>
+    <p>${t('compatibilityNote', 'This is a brief energetic pairing, not a fixed destiny. The deeper your self-awareness, the more meaningful the connection becomes.')}</p>
   `;
 }
 
-function saveToHistory(entry) {
-  const history = JSON.parse(localStorage.getItem('numeros-history') || '[]');
-  history.unshift(entry);
-  const trimmed = history.slice(0, 8);
-  localStorage.setItem('numeros-history', JSON.stringify(trimmed));
-  renderHistory(trimmed);
-}
-
-function renderHistory(items) {
-  if (!items.length) {
-    historyList.innerHTML = '<p>No readings yet. Your cosmic notes will appear here.</p>';
-    return;
-  }
-
-  historyList.innerHTML = items
-    .map(
-      (item) => `
-        <button class="history-item" type="button" data-entry='${JSON.stringify(item)}'>
-          <div>
-            <strong>${item.name}</strong>
-            <p>${item.date} • Life Path ${item.lifePath}</p>
-          </div>
-          <span class="summary-card__pill">${item.destiny}/${item.soul}/${item.personality}</span>
-        </button>
-      `,
-    )
-    .join('');
-}
-
-function populateHistory() {
-  const items = JSON.parse(localStorage.getItem('numeros-history') || '[]');
-  renderHistory(items);
-}
-
 function updateSummary(result) {
-  summaryName.textContent = `${result.nameInput} • ${result.birthDate}`;
-  summaryPill.textContent = `${interpretations[result.lifePath].title}`;
+  const displayName = result.currentName && result.currentName !== result.nameInput
+    ? `${result.nameInput} / ${result.currentName}`
+    : result.nameInput;
+
+  summaryName.textContent = `${displayName} • ${result.birthDate}`;
+  summaryPill.textContent = getInterpretation(result.lifePath).title;
   lifePathMain.textContent = result.lifePath;
-  lifePathText.textContent = interpretations[result.lifePath].description;
+  lifePathText.textContent = getInterpretation(result.lifePath).description;
   destinyMain.textContent = result.destiny.reduced;
   soulMain.textContent = result.soul.reduced;
   personalityMain.textContent = result.personality.reduced;
 }
 
 function displayResult(result) {
+  currentResult = result;
   updateSummary(result);
   renderNumbers(result);
   interpretationContent.innerHTML = buildInterpretation(result.lifePath);
@@ -366,52 +336,14 @@ function playChime() {
   context.close();
 }
 
-function copySummary() {
-  const summaryText = `${summaryName.textContent}\nLife Path ${lifePathMain.textContent}\nDestiny ${destinyMain.textContent}\nSoul Urge ${soulMain.textContent}\nPersonality ${personalityMain.textContent}`;
-  navigator.clipboard.writeText(summaryText).then(() => {
-    copySummaryBtn.textContent = 'Copied!';
-    window.setTimeout(() => {
-      copySummaryBtn.textContent = 'Copy reading';
-    }, 1400);
-  });
-}
-
-function exportPdf() {
-  const reportWindow = window.open('', '_blank', 'width=800,height=900');
-  if (!reportWindow) return;
-
-  reportWindow.document.write(`
-    <html>
-      <head>
-        <title>Numeros Reading</title>
-        <style>
-          body { font-family: Inter, Arial, sans-serif; background: #080611; color: #f8f4ff; padding: 2rem; }
-          h1 { color: #ffca69; }
-          .card { border: 1px solid rgba(255,255,255,0.14); border-radius: 1rem; padding: 1rem; margin-bottom: 1rem; }
-        </style>
-      </head>
-      <body>
-        <h1>Numeros Reading</h1>
-        <div class="card"><strong>Name:</strong> ${summaryName.textContent}</div>
-        <div class="card"><strong>Life Path:</strong> ${lifePathMain.textContent}</div>
-        <div class="card"><strong>Destiny:</strong> ${destinyMain.textContent}</div>
-        <div class="card"><strong>Soul Urge:</strong> ${soulMain.textContent}</div>
-        <div class="card"><strong>Personality:</strong> ${personalityMain.textContent}</div>
-        <script>window.print();</script>
-      </body>
-    </html>
-  `);
-  reportWindow.document.close();
-}
-
-form.addEventListener('submit', (event) => {
+function handleSubmit(event) {
   event.preventDefault();
   const fullName = formatName(document.getElementById('fullName').value);
   const birthDate = document.getElementById('birthDate').value;
   const currentName = formatName(document.getElementById('currentName').value || fullName);
 
   if (!fullName || !birthDate) {
-    alert('Please provide your full birth name and birth date.');
+    window.alert(t('alerts.missingFields', 'Please provide your full birth name and birth date.'));
     return;
   }
 
@@ -419,7 +351,7 @@ form.addEventListener('submit', (event) => {
   const today = new Date();
   const selectedDate = new Date(`${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`);
   if (selectedDate > today) {
-    alert('Birth date cannot be in the future.');
+    window.alert(t('alerts.futureDate', 'Birth date cannot be in the future.'));
     return;
   }
 
@@ -446,34 +378,16 @@ form.addEventListener('submit', (event) => {
     };
 
     displayResult(result);
-    saveToHistory({
-      name: `${fullName} • ${currentName}`,
-      date: birthDate,
-      lifePath: result.lifePath,
-      destiny: result.destiny.reduced,
-      soul: result.soul.reduced,
-      personality: result.personality.reduced,
-    });
   }, 900);
-});
+}
 
-copySummaryBtn.addEventListener('click', copySummary);
-pdfBtn.addEventListener('click', exportPdf);
-clearHistoryBtn.addEventListener('click', () => {
-  localStorage.removeItem('numeros-history');
-  renderHistory([]);
-});
+function toggleLanguage() {
+  const nextLang = currentLang === 'en' ? 'vi' : 'en';
+  setLanguage(nextLang);
+}
 
-historyList.addEventListener('click', (event) => {
-  const entryButton = event.target.closest('[data-entry]');
-  if (!entryButton) return;
-  const entry = JSON.parse(entryButton.getAttribute('data-entry'));
-  const name = entry.name.split(' • ')[0];
-  document.getElementById('fullName').value = name;
-  document.getElementById('birthDate').value = entry.date;
-  document.getElementById('currentName').value = entry.name.split(' • ')[1] || '';
-  document.getElementById('fullName').focus();
-});
+form.addEventListener('submit', handleSubmit);
+langToggle.addEventListener('click', toggleLanguage);
 
 createStars();
-populateHistory();
+loadTranslations();
