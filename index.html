@@ -57,7 +57,26 @@
 
           <label class="field">
             <span data-i18n="birthDateLabel">Birth date</span>
-            <input id="birthDate" name="birthDate" type="date" required />
+            <div class="date-fields">
+              <label class="date-field">
+                <span class="date-field__label" data-i18n="birthMonthLabel">Month</span>
+                <select id="birthMonth" name="birthMonth" required>
+                  <option value="" selected disabled data-i18n="monthPlaceholder">Month</option>
+                </select>
+              </label>
+              <label class="date-field">
+                <span class="date-field__label" data-i18n="birthDayLabel">Day</span>
+                <select id="birthDay" name="birthDay" required>
+                  <option value="" selected disabled data-i18n="dayPlaceholder">Day</option>
+                </select>
+              </label>
+              <label class="date-field">
+                <span class="date-field__label" data-i18n="birthYearLabel">Year</span>
+                <select id="birthYear" name="birthYear" required>
+                  <option value="" selected disabled data-i18n="yearPlaceholder">Year</option>
+                </select>
+              </label>
+            </div>
           </label>
 
           <label class="field">
@@ -152,9 +171,7 @@
       </section>
     </main>
 
-    <footer class="footer">
-      <p data-i18n="footerNote">For entertainment purposes only.</p>
-    </footer>
+    <footer class="footer"></footer>
 
     <script src="script.js"></script>
   </body>

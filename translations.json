@@ -8,6 +8,12 @@
     "fullNameLabel": "Full birth name",
     "fullNamePlaceholder": "Example: Maya Rose Carter",
     "birthDateLabel": "Birth date",
+    "birthMonthLabel": "Month",
+    "birthDayLabel": "Day",
+    "birthYearLabel": "Year",
+    "monthPlaceholder": "Month",
+    "dayPlaceholder": "Day",
+    "yearPlaceholder": "Year",
     "currentNameLabel": "Current name",
     "currentNameHint": "optional",
     "currentNamePlaceholder": "If different from your birth name",
@@ -26,8 +32,8 @@
     "compatibilityTitle": "Compatibility whisper",
     "compatibilitySubtitle": "Simple energetic pairings for your life path.",
     "calculationTitle": "How we calculated it",
-    "footerNote": "For entertainment purposes only.",
     "lifePathSummaryText": "Your life path reveals your mission.",
+    "months": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
     "numberCards": {
       "lifePathTitle": "Life Path",
       "lifePathText": "Month {month} • Day {day} • Year {year}",
@@ -44,12 +50,52 @@
       "soul": "Soul urge",
       "personality": "Personality"
     },
+    "pinnaclesTitle": "Pinnacles",
+    "challengesTitle": "Challenges",
+    "pinnacleLabels": {
+      "first": "First Pinnacle",
+      "second": "Second Pinnacle",
+      "third": "Third Pinnacle",
+      "fourth": "Fourth Pinnacle"
+    },
+    "challengeLabels": {
+      "first": "First Challenge",
+      "second": "Second Challenge",
+      "third": "Third Challenge",
+      "fourth": "Fourth Challenge"
+    },
     "compatibilityLabel": "Compatibility",
     "compatibilityIntro": "Your life path {number} resonates especially with {pairings}.",
     "compatibilityNote": "This is a brief energetic pairing, not a fixed destiny. The deeper your self-awareness, the more meaningful the connection becomes.",
     "alerts": {
       "missingFields": "Please provide your full birth name and birth date.",
+      "invalidDate": "Please choose a valid calendar date.",
       "futureDate": "Birth date cannot be in the future."
+    },
+    "pinnacleNumberDescriptions": {
+      "1": "A strong beginning shaped by initiative and self-leadership.",
+      "2": "A period centered on cooperation, sensitivity, and harmony.",
+      "3": "A season of expression, joy, and creative encouragement.",
+      "4": "A chapter of discipline, structure, and steady growth.",
+      "5": "A time for freedom, adventure, and expanding horizons.",
+      "6": "A phase of care, service, and meaningful responsibility.",
+      "7": "A turning point toward reflection, wisdom, and inner truth.",
+      "8": "A stage of achievement, influence, and practical power.",
+      "9": "A cycle of compassion, completion, and heartfelt service.",
+      "11": "A path of spiritual insight and heightened intuition.",
+      "22": "A mission of long-term building and extraordinary impact.",
+      "33": "A calling to heal, teach, and guide with deep compassion."
+    },
+    "challengeNumberDescriptions": {
+      "1": "The lesson is to cultivate patience and confidence without rushing.",
+      "2": "The growth comes through balance, diplomacy, and emotional steadiness.",
+      "3": "The challenge is to express yourself clearly while staying grounded.",
+      "4": "The lesson asks for structure, consistency, and disciplined effort.",
+      "5": "The challenge is to balance freedom with responsibility and focus.",
+      "6": "The growth comes through service, care, and releasing control.",
+      "7": "The lesson is to trust inner wisdom and not overthink every choice.",
+      "8": "The challenge is to wield power with integrity and humility.",
+      "9": "The lesson is to finish what matters and stay compassionate through change."
     },
     "interpretations": {
       "1": {
@@ -123,6 +169,12 @@
     "fullNameLabel": "Họ và tên khai sinh đầy đủ",
     "fullNamePlaceholder": "Ví dụ: Maya Rose Carter",
     "birthDateLabel": "Ngày sinh",
+    "birthMonthLabel": "Tháng",
+    "birthDayLabel": "Ngày",
+    "birthYearLabel": "Năm",
+    "monthPlaceholder": "Tháng",
+    "dayPlaceholder": "Ngày",
+    "yearPlaceholder": "Năm",
     "currentNameLabel": "Tên hiện tại",
     "currentNameHint": "tùy chọn",
     "currentNamePlaceholder": "Nếu tên hiện tại khác tên khai sinh",
@@ -141,8 +193,8 @@
     "compatibilityTitle": "Nhịp tương hợp",
     "compatibilitySubtitle": "Những cặp đôi năng lượng đơn giản cho đường đời của bạn.",
     "calculationTitle": "Cách chúng tôi tính",
-    "footerNote": "Chỉ dành cho mục đích giải trí.",
     "lifePathSummaryText": "Đường đời của bạn tiết lộ sứ mệnh của mình.",
+    "months": ["Tháng một", "Tháng hai", "Tháng ba", "Tháng tư", "Tháng năm", "Tháng sáu", "Tháng bảy", "Tháng tám", "Tháng chín", "Tháng mười", "Tháng mười một", "Tháng mười hai"],
     "numberCards": {
       "lifePathTitle": "Đường đời",
       "lifePathText": "Tháng {month} • Ngày {day} • Năm {year}",
@@ -159,12 +211,52 @@
       "soul": "Linh hồn",
       "personality": "Tính cách"
     },
+    "pinnaclesTitle": "Đỉnh cao",
+    "challengesTitle": "Thử thách",
+    "pinnacleLabels": {
+      "first": "Đỉnh cao thứ nhất",
+      "second": "Đỉnh cao thứ hai",
+      "third": "Đỉnh cao thứ ba",
+      "fourth": "Đỉnh cao thứ tư"
+    },
+    "challengeLabels": {
+      "first": "Thử thách thứ nhất",
+      "second": "Thử thách thứ hai",
+      "third": "Thử thách thứ ba",
+      "fourth": "Thử thách thứ tư"
+    },
     "compatibilityLabel": "Tương hợp",
     "compatibilityIntro": "Đường đời {number} của bạn đặc biệt đồng điệu với {pairings}.",
     "compatibilityNote": "Đây là một cặp đôi năng lượng ngắn gọn, không phải số mệnh cố định. Bạn càng tự nhận thức sâu sắc thì sự kết nối càng có ý nghĩa hơn.",
     "alerts": {
       "missingFields": "Vui lòng cung cấp họ tên khai sinh đầy đủ và ngày sinh.",
+      "invalidDate": "Vui lòng chọn một ngày hợp lệ trong lịch.",
       "futureDate": "Ngày sinh không được ở tương lai."
+    },
+    "pinnacleNumberDescriptions": {
+      "1": "Một khởi đầu mạnh mẽ được định hình bởi tinh thần tiên phong và tự chủ.",
+      "2": "Một giai đoạn tập trung vào hợp tác, nhạy cảm và hài hòa.",
+      "3": "Một mùa biểu đạt, niềm vui và khuyến khích sáng tạo.",
+      "4": "Một chương của kỷ luật, cấu trúc và tăng trưởng bền bỉ.",
+      "5": "Một thời kỳ của tự do, phiêu lưu và mở rộng tầm nhìn.",
+      "6": "Một giai đoạn của chăm sóc, phục vụ và trách nhiệm có ý nghĩa.",
+      "7": "Một bước ngoặt hướng về sự phản chiếu, trí tuệ và chân lý nội tâm.",
+      "8": "Một thời kỳ của thành tựu, ảnh hưởng và sức mạnh thực tế.",
+      "9": "Một chu kỳ của lòng trắc ẩn, kết thúc và phục vụ chân thành.",
+      "11": "Một con đường của trực giác tâm linh và nhạy cảm tăng cao.",
+      "22": "Một sứ mệnh xây dựng lâu dài và tạo ảnh hưởng lớn lao.",
+      "33": "Một lời gọi chữa lành, dạy dỗ và dẫn dắt bằng lòng từ bi sâu sắc."
+    },
+    "challengeNumberDescriptions": {
+      "1": "Bài học là rèn tính kiên nhẫn và tự tin mà không vội vã.",
+      "2": "Sự trưởng thành đến từ sự cân bằng, ngoại giao và ổn định cảm xúc.",
+      "3": "Thử thách là thể hiện bản thân rõ ràng trong khi vẫn vững vàng.",
+      "4": "Bài học đòi hỏi cấu trúc, nhất quán và nỗ lực có kỷ luật.",
+      "5": "Thử thách là cân bằng giữa tự do, trách nhiệm và tập trung.",
+      "6": "Sự trưởng thành đến từ phục vụ, chăm sóc và buông bỏ việc kiểm soát quá mức.",
+      "7": "Bài học là tin vào trí tuệ nội tâm và đừng nghĩ quá nhiều trước mỗi lựa chọn.",
+      "8": "Thử thách là sử dụng quyền lực với lòng liêm chính và khiêm tốn.",
+      "9": "Bài học là hoàn tất điều quan trọng và vẫn giữ lòng trắc ẩn trong biến đổi."
     },
     "interpretations": {
       "1": {

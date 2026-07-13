@@ -45,6 +45,9 @@ const personalityMain = document.getElementById('personalityMain');
 const langToggle = document.getElementById('langToggle');
 const pageTitle = document.getElementById('pageTitle');
 const starsLayer = document.getElementById('stars');
+const birthMonthSelect = document.getElementById('birthMonth');
+const birthDaySelect = document.getElementById('birthDay');
+const birthYearSelect = document.getElementById('birthYear');
 
 let translations = null;
 let currentLang = localStorage.getItem('numeros-language') || 'en';
@@ -67,6 +70,16 @@ function reduceSingle(value) {
   const masterNumbers = [11, 22, 33];
   let total = value;
   while (total > 9 && !masterNumbers.includes(total)) {
+    total = String(total)
+      .split('')
+      .reduce((acc, digit) => acc + Number(digit), 0);
+  }
+  return total;
+}
+
+function reduceToSingleDigit(value) {
+  let total = Math.abs(value);
+  while (total > 9) {
     total = String(total)
       .split('')
       .reduce((acc, digit) => acc + Number(digit), 0);
@@ -110,11 +123,6 @@ function calculatePersonality(name) {
   return { total, reduced: reduceSingle(total), letters: consonants };
 }
 
-function getDateParts(dateString) {
-  const [year, month, day] = dateString.split('-').map(Number);
-  return { year, month, day };
-}
-
 function formatName(value) {
   return value.trim().replace(/\s+/g, ' ');
 }
@@ -149,10 +157,38 @@ function t(path, fallback = '') {
   return path.split('.').reduce((acc, key) => acc?.[key], langData) ?? fallback;
 }
 
+function populateDateSelects() {
+  const months = t('months', []);
+  const monthPlaceholder = t('monthPlaceholder', 'Month');
+  const dayPlaceholder = t('dayPlaceholder', 'Day');
+  const yearPlaceholder = t('yearPlaceholder', 'Year');
+  const currentMonth = birthMonthSelect.value;
+  const currentDay = birthDaySelect.value;
+  const currentYear = birthYearSelect.value;
+
+  birthMonthSelect.innerHTML = `<option value="" disabled>${monthPlaceholder}</option>` + months
+    .map((month, index) => `<option value="${index + 1}">${month}</option>`)
+    .join('');
+  birthDaySelect.innerHTML = `<option value="" disabled>${dayPlaceholder}</option>` + Array.from({ length: 31 }, (_, index) => `<option value="${index + 1}">${index + 1}</option>`).join('');
+
+  const currentYearValue = new Date().getFullYear();
+  birthYearSelect.innerHTML = `<option value="" disabled>${yearPlaceholder}</option>` + Array.from({ length: 130 }, (_, index) => {
+    const year = currentYearValue + 1 - index;
+    return `<option value="${year}">${year}</option>`;
+  }).join('');
+
+  if (months.length) {
+    birthMonthSelect.value = currentMonth || '';
+  }
+  birthDaySelect.value = currentDay || '';
+  birthYearSelect.value = currentYear || '';
+}
+
 function setLanguage(lang) {
   currentLang = lang;
   localStorage.setItem('numeros-language', lang);
   document.documentElement.lang = lang;
+
   document.querySelectorAll('[data-i18n]').forEach((element) => {
     const text = t(element.dataset.i18n, element.textContent);
     if (text) {
@@ -166,6 +202,8 @@ function setLanguage(lang) {
       element.placeholder = placeholder;
     }
   });
+
+  populateDateSelects();
 
   const chips = langToggle.querySelectorAll('.lang-toggle__chip');
   chips.forEach((chip) => {
@@ -207,6 +245,15 @@ function getInterpretation(number) {
     description: t(`interpretations.${number}.description`, ''),
     compatibility: t(`interpretations.${number}.compatibility`, ''),
   };
+}
+
+function getPinnacleMeaning(value) {
+  const interpretation = getInterpretation(value);
+  return interpretation.description || t('pinnacleNumberDescriptions.' + value, '');
+}
+
+function getChallengeMeaning(value) {
+  return t('challengeNumberDescriptions.' + value, '');
 }
 
 function buildInterpretation(number) {
@@ -260,11 +307,95 @@ function renderNumbers(result) {
 }
 
 function renderCalculationSteps(result) {
+  const firstPinnacle = reduceSingle(result.month + result.day);
+  const secondPinnacle = reduceSingle(result.day + result.year);
+  const thirdPinnacle = reduceSingle(firstPinnacle + secondPinnacle);
+  const fourthPinnacle = reduceSingle(result.month + result.year);
+
+  const firstChallenge = reduceToSingleDigit(Math.abs(result.month - result.day));
+  const secondChallenge = reduceToSingleDigit(Math.abs(result.day - result.year));
+  const thirdChallenge = reduceToSingleDigit(Math.abs(firstChallenge - secondChallenge));
+  const fourthChallenge = reduceToSingleDigit(Math.abs(result.month - result.year));
+
+  const pinnacleItems = [
+    {
+      label: t('pinnacleLabels.first', 'First Pinnacle'),
+      formula: `${result.month} + ${result.day}`,
+      value: firstPinnacle,
+      meaning: getPinnacleMeaning(firstPinnacle),
+    },
+    {
+      label: t('pinnacleLabels.second', 'Second Pinnacle'),
+      formula: `${result.day} + ${result.year}`,
+      value: secondPinnacle,
+      meaning: getPinnacleMeaning(secondPinnacle),
+    },
+    {
+      label: t('pinnacleLabels.third', 'Third Pinnacle'),
+      formula: `${firstPinnacle} + ${secondPinnacle}`,
+      value: thirdPinnacle,
+      meaning: getPinnacleMeaning(thirdPinnacle),
+    },
+    {
+      label: t('pinnacleLabels.fourth', 'Fourth Pinnacle'),
+      formula: `${result.month} + ${result.year}`,
+      value: fourthPinnacle,
+      meaning: getPinnacleMeaning(fourthPinnacle),
+    },
+  ];
+
+  const challengeItems = [
+    {
+      label: t('challengeLabels.first', 'First Challenge'),
+      formula: `|${result.month} - ${result.day}|`,
+      value: firstChallenge,
+      meaning: getChallengeMeaning(firstChallenge),
+    },
+    {
+      label: t('challengeLabels.second', 'Second Challenge'),
+      formula: `|${result.day} - ${result.year}|`,
+      value: secondChallenge,
+      meaning: getChallengeMeaning(secondChallenge),
+    },
+    {
+      label: t('challengeLabels.third', 'Third Challenge'),
+      formula: `|${firstChallenge} - ${secondChallenge}|`,
+      value: thirdChallenge,
+      meaning: getChallengeMeaning(thirdChallenge),
+    },
+    {
+      label: t('challengeLabels.fourth', 'Fourth Challenge'),
+      formula: `|${result.month} - ${result.year}|`,
+      value: fourthChallenge,
+      meaning: getChallengeMeaning(fourthChallenge),
+    },
+  ];
+
+  const renderBreakdown = (items) => items
+    .map(
+      (item) => `
+        <p><strong>${item.label}:</strong> ${item.formula} = <span class="calc-value">${item.value}</span></p>
+        <p class="calc-meaning">${item.meaning}</p>
+      `,
+    )
+    .join('');
+
   calcList.innerHTML = `
-    <p><strong>${t('calculationLabels.lifePath', 'Life path')}:</strong> ${result.lifePathDetails.monthReduced} + ${result.lifePathDetails.dayReduced} + ${result.lifePathDetails.yearReduced} = ${result.lifePathDetails.combined}</p>
-    <p><strong>${t('calculationLabels.destiny', 'Destiny')}:</strong> ${result.destiny.letters} → ${result.destiny.total} → ${result.destiny.reduced}</p>
-    <p><strong>${t('calculationLabels.soul', 'Soul urge')}:</strong> ${result.soul.letters || '—'} → ${result.soul.total} → ${result.soul.reduced}</p>
-    <p><strong>${t('calculationLabels.personality', 'Personality')}:</strong> ${result.personality.letters || '—'} → ${result.personality.total} → ${result.personality.reduced}</p>
+    <div class="calc-group">
+      <h3>${t('calculationLabels.lifePath', 'Life path')}</h3>
+      <p><strong>${t('calculationLabels.lifePath', 'Life path')}:</strong> ${result.lifePathDetails.monthReduced} + ${result.lifePathDetails.dayReduced} + ${result.lifePathDetails.yearReduced} = <span class="calc-value">${result.lifePathDetails.combined}</span></p>
+      <p><strong>${t('calculationLabels.destiny', 'Destiny')}:</strong> ${result.destiny.letters} → ${result.destiny.total} → <span class="calc-value">${result.destiny.reduced}</span></p>
+      <p><strong>${t('calculationLabels.soul', 'Soul urge')}:</strong> ${result.soul.letters || '—'} → ${result.soul.total} → <span class="calc-value">${result.soul.reduced}</span></p>
+      <p><strong>${t('calculationLabels.personality', 'Personality')}:</strong> ${result.personality.letters || '—'} → ${result.personality.total} → <span class="calc-value">${result.personality.reduced}</span></p>
+    </div>
+    <div class="calc-group">
+      <h3>${t('pinnaclesTitle', 'Pinnacles')}</h3>
+      ${renderBreakdown(pinnacleItems)}
+    </div>
+    <div class="calc-group">
+      <h3>${t('challengesTitle', 'Challenges')}</h3>
+      ${renderBreakdown(challengeItems)}
+    </div>
   `;
 }
 
@@ -336,21 +467,34 @@ function playChime() {
   context.close();
 }
 
+function getSelectedBirthDate() {
+  const year = Number(birthYearSelect.value);
+  const month = Number(birthMonthSelect.value);
+  const day = Number(birthDaySelect.value);
+  return { year, month, day };
+}
+
 function handleSubmit(event) {
   event.preventDefault();
   const fullName = formatName(document.getElementById('fullName').value);
-  const birthDate = document.getElementById('birthDate').value;
   const currentName = formatName(document.getElementById('currentName').value || fullName);
+  const { year, month, day } = getSelectedBirthDate();
 
-  if (!fullName || !birthDate) {
+  if (!fullName || !month || !day || !year) {
     window.alert(t('alerts.missingFields', 'Please provide your full birth name and birth date.'));
     return;
   }
 
-  const { year, month, day } = getDateParts(birthDate);
+  const lastDayOfMonth = new Date(year, month, 0).getDate();
+  if (day > lastDayOfMonth) {
+    window.alert(t('alerts.invalidDate', 'Please choose a valid calendar date.'));
+    return;
+  }
+
   const today = new Date();
-  const selectedDate = new Date(`${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`);
-  if (selectedDate > today) {
+  const selectedDate = new Date(year, month - 1, day);
+  const todayStart = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+  if (selectedDate > todayStart) {
     window.alert(t('alerts.futureDate', 'Birth date cannot be in the future.'));
     return;
   }
@@ -365,11 +509,15 @@ function handleSubmit(event) {
     const soul = calculateSoulUrge(fullName);
     const personality = calculatePersonality(fullName);
     const lifePathDetails = reduceForLifePath(month, day, year);
+    const birthDate = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
 
     const result = {
       nameInput: fullName,
       currentName,
       birthDate,
+      month,
+      day,
+      year,
       lifePath: lifePathDetails.combined,
       lifePathDetails,
       destiny,
