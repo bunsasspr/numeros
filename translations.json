@@ -15,7 +15,7 @@
     "dayPlaceholder": "Day",
     "yearPlaceholder": "Year",
     "currentNameLabel": "Current name",
-    "currentNameHint": "optional",
+    "currentNameHint": "(optional)",
     "currentNamePlaceholder": "If different from your birth name",
     "submitButton": "Calculate my reading",
     "summaryEyebrow": "Your essence",
