@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Numeros is a mystical numerology calculator for life path, destiny, soul urge, and personality insights."
+    />
+    <meta name="color-scheme" content="dark" />
+    <title>Numeros | Mystical Numerology Calculator</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="stars" id="stars" aria-hidden="true"></div>
+    <div class="aurora aurora-one" aria-hidden="true"></div>
+    <div class="aurora aurora-two" aria-hidden="true"></div>
+
+    <main class="app-shell">
+      <header class="hero">
+        <div class="hero__badge">Cosmic Insight • Numerology</div>
+        <h1>Numeros</h1>
+        <p>
+          Reveal the hidden rhythm of your life through destiny, heart, and
+          personality numbers.
+        </p>
+      </header>
+
+      <section class="card form-card" aria-labelledby="form-title">
+        <div class="card__header">
+          <h2 id="form-title">Your celestial reading</h2>
+          <p>Enter your birth details to unveil your cosmic blueprint.</p>
+        </div>
+
+        <form id="reading-form" novalidate>
+          <label class="field">
+            <span>Full birth name</span>
+            <input
+              id="fullName"
+              name="fullName"
+              type="text"
+              placeholder="Example: Maya Rose Carter"
+              required
+              autocomplete="name"
+            />
+          </label>
+
+          <label class="field">
+            <span>Birth date</span>
+            <input id="birthDate" name="birthDate" type="date" required />
+          </label>
+
+          <label class="field">
+            <span>Current name <small>(optional)</small></span>
+            <input
+              id="currentName"
+              name="currentName"
+              type="text"
+              placeholder="If different from your birth name"
+              autocomplete="name"
+            />
+          </label>
+
+          <button class="btn btn--primary" type="submit">
+            <span>Calculate my reading</span>
+          </button>
+        </form>
+
+        <div class="progress" aria-hidden="true">
+          <div class="progress__bar" id="progressBar"></div>
+        </div>
+      </section>
+
+      <section class="results" id="results" hidden>
+        <div class="card summary-card">
+          <div class="summary-card__head">
+            <div>
+              <p class="eyebrow">Your essence</p>
+              <h2 id="summaryName">Reading summary</h2>
+            </div>
+            <div class="summary-card__pill" id="summaryPill">Awaiting cosmic pattern</div>
+          </div>
+
+          <div class="summary-grid">
+            <article class="summary-spotlight">
+              <p class="eyebrow">Life Path</p>
+              <div class="orb" id="lifePathMain">—</div>
+              <p id="lifePathText">Your life path reveals your mission.</p>
+            </article>
+
+            <div class="summary-details">
+              <div>
+                <span class="eyebrow">Destiny</span>
+                <strong id="destinyMain">—</strong>
+              </div>
+              <div>
+                <span class="eyebrow">Soul Urge</span>
+                <strong id="soulMain">—</strong>
+              </div>
+              <div>
+                <span class="eyebrow">Personality</span>
+                <strong id="personalityMain">—</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card numbers-card">
+          <div class="card__header">
+            <h2>Core numbers</h2>
+            <p>Each number carries a luminous message.</p>
+          </div>
+          <div class="numbers-grid" id="numbersGrid"></div>
+        </div>
+
+        <div class="card interpretation-card">
+          <div class="card__header">
+            <h2>Interpretations</h2>
+            <p>Delve into the energy woven through your path.</p>
+          </div>
+          <div id="interpretationContent"></div>
+        </div>
+
+        <div class="card compatibility-card">
+          <div class="card__header">
+            <h2>Compatibility whisper</h2>
+            <p>Simple energetic pairings for your life path.</p>
+          </div>
+          <div id="compatibilityContent"></div>
+        </div>
+
+        <div class="card calculation-card">
+          <details>
+            <summary>How we calculated it</summary>
+            <div class="calc-list" id="calcList"></div>
+          </details>
+        </div>
+
+        <div class="card actions-card">
+          <div class="actions">
+            <button class="btn btn--secondary" id="copySummaryBtn" type="button">
+              Copy reading
+            </button>
+            <button class="btn btn--secondary" id="pdfBtn" type="button">
+              Export as PDF
+            </button>
+          </div>
+          <p class="muted">
+            Your reading is saved locally for quick revisits and reflections.
+          </p>
+        </div>
+
+        <div class="card history-card">
+          <div class="card__header">
+            <h2>Recent readings</h2>
+            <button class="btn btn--ghost" id="clearHistoryBtn" type="button">
+              Clear history
+            </button>
+          </div>
+          <div id="historyList" class="history-list"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>For entertainment purposes only.</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
