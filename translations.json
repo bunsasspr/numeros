@@ -58,6 +58,11 @@
       "third": "Third Pinnacle",
       "fourth": "Fourth Pinnacle"
     },
+    "pinnacleAgeRange": {
+      "first": "starts at age {start}, active until {end}",
+      "next": "starts at age {start}",
+      "last": "starts at age {start}, onward"
+    },
     "challengeLabels": {
       "first": "First Challenge",
       "second": "Second Challenge",
@@ -218,6 +223,11 @@
       "second": "Đỉnh cao thứ hai",
       "third": "Đỉnh cao thứ ba",
       "fourth": "Đỉnh cao thứ tư"
+    },
+    "pinnacleAgeRange": {
+      "first": "bắt đầu từ {start} tuổi, kéo dài đến {end}",
+      "next": "bắt đầu từ {start} tuổi",
+      "last": "bắt đầu từ {start} tuổi trở đi"
     },
     "challengeLabels": {
       "first": "Thử thách thứ nhất",

@@ -324,35 +324,68 @@ function renderCalculationSteps(result) {
   const thirdPinnacle = reduceSingle(firstPinnacle + secondPinnacle);
   const fourthPinnacle = reduceSingle(result.month + result.year);
 
+  // First Pinnacle starts at age (36 - Life Path - 9)
+  const firstStart = (36 - result.lifePath) - 9;
+  const firstEnd = firstStart + 9;
+  const secondPinnacleStart = firstEnd;
+  const secondPinnacleEnd = secondPinnacleStart + 9;
+  const thirdPinnacleStart = secondPinnacleEnd;
+  const thirdPinnacleEnd = thirdPinnacleStart + 9;
+  const fourthPinnacleStart = thirdPinnacleEnd;
+
+  function renderPinnacleAge(item) {
+    if (item.index === 0) {
+      return t('pinnacleAgeRange.first', 'starts at age {start}, active until {end}')
+        .replace('{start}', item.startAge)
+        .replace('{end}', item.endAge);
+    } else if (item.index === 3) {
+      return t('pinnacleAgeRange.last', 'starts at age {start}, onward')
+        .replace('{start}', item.startAge);
+    }
+    return t('pinnacleAgeRange.next', 'starts at age {start}')
+      .replace('{start}', item.startAge);
+  }
+
   const firstChallenge = reduceToSingleDigit(Math.abs(result.month - result.day));
   const secondChallenge = reduceToSingleDigit(Math.abs(result.day - result.year));
   const thirdChallenge = reduceToSingleDigit(Math.abs(firstChallenge - secondChallenge));
   const fourthChallenge = reduceToSingleDigit(Math.abs(result.month - result.year));
 
   const pinnacleItems = [
-    {
+  {
       label: t('pinnacleLabels.first', 'First Pinnacle'),
       formula: `${result.month} + ${result.day}`,
       value: firstPinnacle,
       meaning: getPinnacleMeaning(firstPinnacle),
+      startAge: firstStart,     // ← make sure it's firstStart
+      endAge: firstEnd,         // ← make sure it's firstEnd
+      index: 0,
     },
     {
       label: t('pinnacleLabels.second', 'Second Pinnacle'),
       formula: `${result.day} + ${result.year}`,
       value: secondPinnacle,
       meaning: getPinnacleMeaning(secondPinnacle),
+      startAge: secondPinnacleStart,
+      endAge: secondPinnacleEnd,
+      index: 1,
     },
     {
       label: t('pinnacleLabels.third', 'Third Pinnacle'),
       formula: `${firstPinnacle} + ${secondPinnacle}`,
       value: thirdPinnacle,
       meaning: getPinnacleMeaning(thirdPinnacle),
+      startAge: thirdPinnacleStart,
+      endAge: thirdPinnacleEnd,
+      index: 2,
     },
     {
       label: t('pinnacleLabels.fourth', 'Fourth Pinnacle'),
       formula: `${result.month} + ${result.year}`,
       value: fourthPinnacle,
       meaning: getPinnacleMeaning(fourthPinnacle),
+      startAge: fourthPinnacleStart,
+      index: 3,
     },
   ];
 
@@ -385,10 +418,16 @@ function renderCalculationSteps(result) {
 
   const renderBreakdown = (items) => items
     .map(
-      (item) => `
-        <p><strong>${item.label}:</strong> ${item.formula} = <span class="calc-value">${item.value}</span></p>
-        <p class="calc-meaning">${item.meaning}</p>
-      `,
+      (item) => {
+        let ageHtml = '';
+        if (item.startAge !== undefined) {
+          ageHtml = ` <span class="calc-age">(${renderPinnacleAge(item)})</span>`;
+        }
+        return `
+          <p><strong>${item.label}:</strong> ${item.formula} = <span class="calc-value">${item.value}</span>${ageHtml}</p>
+          <p class="calc-meaning">${item.meaning}</p>
+        `;
+      },
     )
     .join('');
 
