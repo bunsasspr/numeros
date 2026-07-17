@@ -34,6 +34,19 @@
     "calculationTitle": "How we calculated it",
     "lifePathSummaryText": "Your life path reveals your mission.",
     "months": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+    "tabReading": "Your celestial reading",
+    "tabCycles": "Current Cycles",
+    "cycToday": "Today: {date}",
+    "cycNoBirthdate": "No birth date found. Please complete your celestial reading first.",
+    "cycCalculate": "Calculate Cycles",
+    "cycGoToForm": "Go to Reading",
+    "cycPersonalYear": "Personal Year",
+    "cycPersonalMonth": "Personal Month",
+    "cycPersonalDay": "Personal Day",
+    "cycFormulaYear": "{month} (birth month) + {day} (birth day) + {year} (current year) = {sum} → {reduced}",
+    "cycFormulaMonth": "{py} (personal year) + {month} (current month) = {sum} → {reduced}",
+    "cycFormulaDay": "{pm} (personal month) + {day} (current day) = {sum} → {reduced}",
+    "cycInterpretationTitle": "Meaning of {number}",
     "numberCards": {
       "lifePathTitle": "Life Path",
       "lifePathText": "Month {month} • Day {day} • Year {year}",
@@ -163,6 +176,44 @@
         "description": "Your life is shaped by compassion, healing, and spiritual leadership. You embody the gift of teaching through example and deep care.",
         "compatibility": "Often resonates with 3, 6, and 9."
       }
+    },
+    "cycMeanings": {
+      "1": {
+        "en": "A year of new beginnings, independence, and self-discovery. Take the lead and trust your instincts.",
+        "vi": "Một năm của khởi đầu mới, độc lập và khám phá bản thân. Hãy dẫn đầu và tin vào trực giác của bạn."
+      },
+      "2": {
+        "en": "A time for partnership, patience, and gentle connection. Cooperation opens hidden doors.",
+        "vi": "Thời gian cho sự hợp tác, kiên nhẫn và kết nối nhẹ nhàng. Hợp tác mở ra những cánh cửa ẩn giấu."
+      },
+      "3": {
+        "en": "A season of creativity, self-expression, and social joy. Share your gifts with the world.",
+        "vi": "Mùa của sáng tạo, biểu đạt bản thân và niềm vui xã hội. Hãy chia sẻ món quà của bạn với thế giới."
+      },
+      "4": {
+        "en": "A phase of structure, hard work, and building solid foundations. Steady effort creates lasting results.",
+        "vi": "Giai đoạn của cấu trúc, làm việc chăm chỉ và xây dựng nền tảng vững chắc. Nỗ lực đều đặn tạo ra kết quả bền vững."
+      },
+      "5": {
+        "en": "A year of freedom, adventure, and embracing change. Growth comes through new experiences.",
+        "vi": "Một năm của tự do, phiêu lưu và đón nhận thay đổi. Sự trưởng thành đến qua những trải nghiệm mới."
+      },
+      "6": {
+        "en": "A time focused on family, responsibility, and nurturing love. Harmony at home is your anchor.",
+        "vi": "Thời gian tập trung vào gia đình, trách nhiệm và tình yêu thương. Hài hòa trong gia đình là neo đậu của bạn."
+      },
+      "7": {
+        "en": "A period of introspection, spiritual growth, and inner wisdom. Solitude brings profound insights.",
+        "vi": "Giai đoạn nội tâm, phát triển tâm linh và trí tuệ bên trong. Sự tĩnh lặng mang đến những nhận thức sâu sắc."
+      },
+      "8": {
+        "en": "A year of ambition, achievement, and material abundance. Step into your personal power.",
+        "vi": "Một năm của tham vọng, thành tựu và thịnh vượng vật chất. Hãy bước vào sức mạnh cá nhân của bạn."
+      },
+      "9": {
+        "en": "A cycle of completion, compassion, and letting go. Release the old to welcome new beginnings.",
+        "vi": "Một chu kỳ của kết thúc, lòng trắc ẩn và buông bỏ. Hãy giải phóng những gì cũ để đón nhận khởi đầu mới."
+      }
     }
   },
   "vi": {
@@ -200,6 +251,19 @@
     "calculationTitle": "Cách chúng tôi tính",
     "lifePathSummaryText": "Đường đời của bạn tiết lộ sứ mệnh của mình.",
     "months": ["Tháng một", "Tháng hai", "Tháng ba", "Tháng tư", "Tháng năm", "Tháng sáu", "Tháng bảy", "Tháng tám", "Tháng chín", "Tháng mười", "Tháng mười một", "Tháng mười hai"],
+    "tabReading": "Lời đọc thiên văn",
+    "tabCycles": "Chu kỳ hiện tại",
+    "cycToday": "Hôm nay: {date}",
+    "cycNoBirthdate": "Không tìm thấy ngày sinh. Vui lòng hoàn thành lời đọc thiên văn trước.",
+    "cycCalculate": "Tính Chu Kỳ",
+    "cycGoToForm": "Đến Lời đọc",
+    "cycPersonalYear": "Năm Cá Nhân",
+    "cycPersonalMonth": "Tháng Cá Nhân",
+    "cycPersonalDay": "Ngày Cá Nhân",
+    "cycFormulaYear": "{month} (tháng sinh) + {day} (ngày sinh) + {year} (năm hiện tại) = {sum} → {reduced}",
+    "cycFormulaMonth": "{py} (năm cá nhân) + {month} (tháng hiện tại) = {sum} → {reduced}",
+    "cycFormulaDay": "{pm} (tháng cá nhân) + {day} (ngày hiện tại) = {sum} → {reduced}",
+    "cycInterpretationTitle": "Ý nghĩa số {number}",
     "numberCards": {
       "lifePathTitle": "Đường đời",
       "lifePathText": "Tháng {month} • Ngày {day} • Năm {year}",
@@ -328,6 +392,44 @@
         "title": "Người Dạy Giáo Thần",
         "description": "Đời bạn được định hình bởi lòng từ bi, chữa lành và lãnh đạo tâm linh. Bạn mang trong mình món quà dạy dỗ bằng chính việc sống và lòng quan tâm sâu sắc.",
         "compatibility": "Thường rung hợp với 3, 6 và 9."
+      }
+    },
+    "cycMeanings": {
+      "1": {
+        "en": "A year of new beginnings, independence, and self-discovery. Take the lead and trust your instincts.",
+        "vi": "Một năm của khởi đầu mới, độc lập và khám phá bản thân. Hãy dẫn đầu và tin vào trực giác của bạn."
+      },
+      "2": {
+        "en": "A time for partnership, patience, and gentle connection. Cooperation opens hidden doors.",
+        "vi": "Thời gian cho sự hợp tác, kiên nhẫn và kết nối nhẹ nhàng. Hợp tác mở ra những cánh cửa ẩn giấu."
+      },
+      "3": {
+        "en": "A season of creativity, self-expression, and social joy. Share your gifts with the world.",
+        "vi": "Mùa của sáng tạo, biểu đạt bản thân và niềm vui xã hội. Hãy chia sẻ món quà của bạn với thế giới."
+      },
+      "4": {
+        "en": "A phase of structure, hard work, and building solid foundations. Steady effort creates lasting results.",
+        "vi": "Giai đoạn của cấu trúc, làm việc chăm chỉ và xây dựng nền tảng vững chắc. Nỗ lực đều đặn tạo ra kết quả bền vững."
+      },
+      "5": {
+        "en": "A year of freedom, adventure, and embracing change. Growth comes through new experiences.",
+        "vi": "Một năm của tự do, phiêu lưu và đón nhận thay đổi. Sự trưởng thành đến qua những trải nghiệm mới."
+      },
+      "6": {
+        "en": "A time focused on family, responsibility, and nurturing love. Harmony at home is your anchor.",
+        "vi": "Thời gian tập trung vào gia đình, trách nhiệm và tình yêu thương. Hài hòa trong gia đình là neo đậu của bạn."
+      },
+      "7": {
+        "en": "A period of introspection, spiritual growth, and inner wisdom. Solitude brings profound insights.",
+        "vi": "Giai đoạn nội tâm, phát triển tâm linh và trí tuệ bên trong. Sự tĩnh lặng mang đến những nhận thức sâu sắc."
+      },
+      "8": {
+        "en": "A year of ambition, achievement, and material abundance. Step into your personal power.",
+        "vi": "Một năm của tham vọng, thành tựu và thịnh vượng vật chất. Hãy bước vào sức mạnh cá nhân của bạn."
+      },
+      "9": {
+        "en": "A cycle of completion, compassion, and letting go. Release the old to welcome new beginnings.",
+        "vi": "Một chu kỳ của kết thúc, lòng trắc ẩn và buông bỏ. Hãy giải phóng những gì cũ để đón nhận khởi đầu mới."
       }
     }
   }

@@ -35,140 +35,197 @@
         </p>
       </header>
 
-      <section class="card form-card" aria-labelledby="form-title">
-        <div class="card__header">
-          <h2 id="form-title" data-i18n="formTitle">Your celestial reading</h2>
-          <p data-i18n="formSubtitle">Enter your birth details to unveil your cosmic blueprint.</p>
-        </div>
+      <!-- Tab Navigation -->
+      <nav class="tab-nav" role="tablist" aria-label="Main navigation">
+        <button class="tab-nav__btn is-active" role="tab" aria-selected="true" data-tab="reading" id="tabBtnReading">
+          <span data-i18n="tabReading">Your celestial reading</span>
+        </button>
+        <button class="tab-nav__btn" role="tab" aria-selected="false" data-tab="cycles" id="tabBtnCycles">
+          <span data-i18n="tabCycles">Current Cycles</span>
+        </button>
+      </nav>
 
-        <form id="reading-form" novalidate>
-          <label class="field">
-            <span data-i18n="fullNameLabel">Full birth name</span>
-            <input
-              id="fullName"
-              name="fullName"
-              type="text"
-              data-i18n-placeholder="fullNamePlaceholder"
-              placeholder="Example: Maya Rose Carter"
-              required
-              autocomplete="name"
-            />
-          </label>
-
-          <label class="field">
-            <span data-i18n="birthDateLabel">Birth date</span>
-            <div class="date-fields">
-              <label class="date-field">
-                <span class="date-field__label" data-i18n="birthMonthLabel">Month</span>
-                <select id="birthMonth" name="birthMonth" required>
-                  <option value="" selected disabled data-i18n="monthPlaceholder">Month</option>
-                </select>
-              </label>
-              <label class="date-field">
-                <span class="date-field__label" data-i18n="birthDayLabel">Day</span>
-                <select id="birthDay" name="birthDay" required>
-                  <option value="" selected disabled data-i18n="dayPlaceholder">Day</option>
-                </select>
-              </label>
-              <label class="date-field">
-                <span class="date-field__label" data-i18n="birthYearLabel">Year</span>
-                <select id="birthYear" name="birthYear" required>
-                  <option value="" selected disabled data-i18n="yearPlaceholder">Year</option>
-                </select>
-              </label>
-            </div>
-          </label>
-
-          <label class="field">
-            <span>
-              <span data-i18n="currentNameLabel">Current name</span>
-              <small data-i18n="currentNameHint">(optional)</small>
-            </span>
-            <input
-              id="currentName"
-              name="currentName"
-              type="text"
-              data-i18n-placeholder="currentNamePlaceholder"
-              placeholder="If different from your birth name"
-              autocomplete="name"
-            />
-          </label>
-
-          <button class="btn btn--primary" type="submit">
-            <span data-i18n="submitButton">Calculate my reading</span>
-          </button>
-        </form>
-
-        <div class="progress" aria-hidden="true">
-          <div class="progress__bar" id="progressBar"></div>
-        </div>
-      </section>
-
-      <section class="results" id="results" hidden>
-        <div class="card summary-card">
-          <div class="summary-card__head">
-            <div>
-              <p class="eyebrow" data-i18n="summaryEyebrow">Your essence</p>
-              <h2 id="summaryName">Reading summary</h2>
-            </div>
-            <div class="summary-card__pill" id="summaryPill">Awaiting cosmic pattern</div>
-          </div>
-
-          <div class="summary-grid">
-            <article class="summary-spotlight">
-              <p class="eyebrow" data-i18n="lifePathLabel">Life Path</p>
-              <div class="orb" id="lifePathMain">—</div>
-              <p id="lifePathText">Your life path reveals your mission.</p>
-            </article>
-
-            <div class="summary-details">
-              <div>
-                <span class="eyebrow" data-i18n="destinyLabel">Destiny</span>
-                <strong id="destinyMain">—</strong>
-              </div>
-              <div>
-                <span class="eyebrow" data-i18n="soulLabel">Soul Urge</span>
-                <strong id="soulMain">—</strong>
-              </div>
-              <div>
-                <span class="eyebrow" data-i18n="personalityLabel">Personality</span>
-                <strong id="personalityMain">—</strong>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card numbers-card">
+      <!-- Tab: Reading -->
+      <div class="tab-panel is-active" role="tabpanel" id="tabPanelReading" data-tab="reading">
+        <section class="card form-card" aria-labelledby="form-title">
           <div class="card__header">
-            <h2 data-i18n="coreNumbersTitle">Core numbers</h2>
-            <p data-i18n="coreNumbersSubtitle">Each number carries a luminous message.</p>
+            <h2 id="form-title" data-i18n="formTitle">Your celestial reading</h2>
+            <p data-i18n="formSubtitle">Enter your birth details to unveil your cosmic blueprint.</p>
           </div>
-          <div class="numbers-grid" id="numbersGrid"></div>
-        </div>
 
-        <div class="card interpretation-card">
+          <form id="reading-form" novalidate>
+            <label class="field">
+              <span data-i18n="fullNameLabel">Full birth name</span>
+              <input
+                id="fullName"
+                name="fullName"
+                type="text"
+                data-i18n-placeholder="fullNamePlaceholder"
+                placeholder="Example: Maya Rose Carter"
+                required
+                autocomplete="name"
+              />
+            </label>
+
+            <label class="field">
+              <span data-i18n="birthDateLabel">Birth date</span>
+              <div class="date-fields">
+                <label class="date-field">
+                  <span class="date-field__label" data-i18n="birthMonthLabel">Month</span>
+                  <select id="birthMonth" name="birthMonth" required>
+                    <option value="" selected disabled data-i18n="monthPlaceholder">Month</option>
+                  </select>
+                </label>
+                <label class="date-field">
+                  <span class="date-field__label" data-i18n="birthDayLabel">Day</span>
+                  <select id="birthDay" name="birthDay" required>
+                    <option value="" selected disabled data-i18n="dayPlaceholder">Day</option>
+                  </select>
+                </label>
+                <label class="date-field">
+                  <span class="date-field__label" data-i18n="birthYearLabel">Year</span>
+                  <select id="birthYear" name="birthYear" required>
+                    <option value="" selected disabled data-i18n="yearPlaceholder">Year</option>
+                  </select>
+                </label>
+              </div>
+            </label>
+
+            <label class="field">
+              <span>
+                <span data-i18n="currentNameLabel">Current name</span>
+                <small data-i18n="currentNameHint">(optional)</small>
+              </span>
+              <input
+                id="currentName"
+                name="currentName"
+                type="text"
+                data-i18n-placeholder="currentNamePlaceholder"
+                placeholder="If different from your birth name"
+                autocomplete="name"
+              />
+            </label>
+
+            <button class="btn btn--primary" type="submit">
+              <span data-i18n="submitButton">Calculate my reading</span>
+            </button>
+          </form>
+
+          <div class="progress" aria-hidden="true">
+            <div class="progress__bar" id="progressBar"></div>
+          </div>
+        </section>
+
+        <section class="results" id="results" hidden>
+          <div class="card summary-card">
+            <div class="summary-card__head">
+              <div>
+                <p class="eyebrow" data-i18n="summaryEyebrow">Your essence</p>
+                <h2 id="summaryName">Reading summary</h2>
+              </div>
+              <div class="summary-card__pill" id="summaryPill">Awaiting cosmic pattern</div>
+            </div>
+
+            <div class="summary-grid">
+              <article class="summary-spotlight">
+                <p class="eyebrow" data-i18n="lifePathLabel">Life Path</p>
+                <div class="orb" id="lifePathMain">—</div>
+                <p id="lifePathText">Your life path reveals your mission.</p>
+              </article>
+
+              <div class="summary-details">
+                <div>
+                  <span class="eyebrow" data-i18n="destinyLabel">Destiny</span>
+                  <strong id="destinyMain">—</strong>
+                </div>
+                <div>
+                  <span class="eyebrow" data-i18n="soulLabel">Soul Urge</span>
+                  <strong id="soulMain">—</strong>
+                </div>
+                <div>
+                  <span class="eyebrow" data-i18n="personalityLabel">Personality</span>
+                  <strong id="personalityMain">—</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card numbers-card">
+            <div class="card__header">
+              <h2 data-i18n="coreNumbersTitle">Core numbers</h2>
+              <p data-i18n="coreNumbersSubtitle">Each number carries a luminous message.</p>
+            </div>
+            <div class="numbers-grid" id="numbersGrid"></div>
+          </div>
+
+          <div class="card interpretation-card">
+            <div class="card__header">
+              <h2 data-i18n="interpretationsTitle">Interpretations</h2>
+              <p data-i18n="interpretationsSubtitle">Delve into the energy woven through your path.</p>
+            </div>
+            <div id="interpretationContent"></div>
+          </div>
+
+          <div class="card compatibility-card">
+            <div class="card__header">
+              <h2 data-i18n="compatibilityTitle">Compatibility whisper</h2>
+              <p data-i18n="compatibilitySubtitle">Simple energetic pairings for your life path.</p>
+            </div>
+            <div id="compatibilityContent"></div>
+          </div>
+
+          <div class="card calculation-card">
+            <details open>
+              <summary data-i18n="calculationTitle">How we calculated it</summary>
+              <div class="calc-list" id="calcList"></div>
+            </details>
+          </div>
+        </section>
+      </div>
+
+      <!-- Tab: Current Cycles -->
+      <div class="tab-panel" role="tabpanel" id="tabPanelCycles" data-tab="cycles" hidden>
+        <section class="card cycles-card" aria-labelledby="cycles-title">
           <div class="card__header">
-            <h2 data-i18n="interpretationsTitle">Interpretations</h2>
-            <p data-i18n="interpretationsSubtitle">Delve into the energy woven through your path.</p>
+            <h2 id="cycles-title" data-i18n="tabCycles">Current Cycles</h2>
+            <p class="cyc-date" id="cycDate"></p>
           </div>
-          <div id="interpretationContent"></div>
-        </div>
 
-        <div class="card compatibility-card">
-          <div class="card__header">
-            <h2 data-i18n="compatibilityTitle">Compatibility whisper</h2>
-            <p data-i18n="compatibilitySubtitle">Simple energetic pairings for your life path.</p>
+          <!-- Birth date inputs (always visible) -->
+          <div class="cyc-form" id="cycForm">
+            <label class="field">
+              <span data-i18n="birthDateLabel">Birth date</span>
+              <div class="date-fields">
+                <label class="date-field">
+                  <span class="date-field__label" data-i18n="birthMonthLabel">Month</span>
+                  <select id="cycBirthMonth" name="cycBirthMonth" required>
+                    <option value="" selected disabled data-i18n="monthPlaceholder">Month</option>
+                  </select>
+                </label>
+                <label class="date-field">
+                  <span class="date-field__label" data-i18n="birthDayLabel">Day</span>
+                  <select id="cycBirthDay" name="cycBirthDay" required>
+                    <option value="" selected disabled data-i18n="dayPlaceholder">Day</option>
+                  </select>
+                </label>
+                <label class="date-field">
+                  <span class="date-field__label" data-i18n="birthYearLabel">Year</span>
+                  <select id="cycBirthYear" name="cycBirthYear" required>
+                    <option value="" selected disabled data-i18n="yearPlaceholder">Year</option>
+                  </select>
+                </label>
+              </div>
+            </label>
+            <button class="btn btn--primary" id="cycCalculateBtn" type="button">
+              <span data-i18n="cycCalculate">Calculate Cycles</span>
+            </button>
           </div>
-          <div id="compatibilityContent"></div>
-        </div>
 
-        <div class="card calculation-card">
-          <details open>
-            <summary data-i18n="calculationTitle">How we calculated it</summary>
-            <div class="calc-list" id="calcList"></div>
-          </details>
-        </div>
-      </section>
+          <div id="cyclesContent">
+            <!-- Populated by JS -->
+          </div>
+        </section>
+      </div>
     </main>
 
     <footer class="footer"></footer>

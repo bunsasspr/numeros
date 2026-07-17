@@ -139,6 +139,47 @@ body {
   font-size: 1.02rem;
 }
 
+/* Tab Navigation */
+.tab-nav {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 1.6rem;
+}
+
+.tab-nav__btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  padding: 0.7rem 1.4rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 220ms ease;
+  font-family: inherit;
+}
+
+.tab-nav__btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text);
+}
+
+.tab-nav__btn.is-active {
+  background: linear-gradient(135deg, rgba(184, 145, 255, 0.2), rgba(99, 56, 255, 0.2));
+  border-color: var(--accent);
+  color: var(--text);
+  box-shadow: 0 0 20px rgba(184, 145, 255, 0.15);
+}
+
+.tab-panel {
+  display: none;
+}
+
+.tab-panel.is-active {
+  display: block;
+}
+
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -455,6 +496,91 @@ summary {
   font-weight: 600;
 }
 
+/* ===== Current Cycles Tab ===== */
+.cycles-card {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.cyc-date {
+  color: var(--accent-3);
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+.cyc-grid {
+  display: grid;
+  gap: 1.2rem;
+  margin-top: 0.5rem;
+}
+
+.cyc-item {
+  background: linear-gradient(140deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1.2rem;
+  padding: 1.2rem;
+  transition: border-color 220ms ease;
+}
+
+.cyc-item:hover {
+  border-color: rgba(184, 145, 255, 0.3);
+}
+
+.cyc-item__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.cyc-item__label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--accent-2);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0;
+}
+
+.cyc-item__value {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1;
+}
+
+.cyc-item__formula {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin: 0.4rem 0 0.6rem;
+  font-family: "Courier New", monospace;
+  opacity: 0.8;
+}
+
+.cyc-item__meaning {
+  font-size: 0.95rem;
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.cyc-item__meaning strong {
+  color: var(--accent-3);
+}
+
+.cyc-no-birthdate {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.cyc-no-birthdate p {
+  color: var(--muted);
+  margin-bottom: 1.2rem;
+  font-size: 1rem;
+}
+
 @keyframes glow {
   0%,
   100% {
@@ -510,5 +636,19 @@ summary {
 
   .date-fields {
     grid-template-columns: 1fr;
+  }
+
+  .tab-nav {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .tab-nav__btn {
+    text-align: center;
+  }
+
+  .cyc-item__head {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }

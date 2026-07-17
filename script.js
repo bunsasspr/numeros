@@ -49,6 +49,19 @@ const birthMonthSelect = document.getElementById('birthMonth');
 const birthDaySelect = document.getElementById('birthDay');
 const birthYearSelect = document.getElementById('birthYear');
 
+// Tab elements
+const tabBtns = document.querySelectorAll('.tab-nav__btn');
+const tabPanels = document.querySelectorAll('.tab-panel');
+const tabBtnReading = document.getElementById('tabBtnReading');
+const tabBtnCycles = document.getElementById('tabBtnCycles');
+const tabPanelCycles = document.getElementById('tabPanelCycles');
+const cyclesContent = document.getElementById('cyclesContent');
+const cycDate = document.getElementById('cycDate');
+const cycBirthMonthSelect = document.getElementById('cycBirthMonth');
+const cycBirthDaySelect = document.getElementById('cycBirthDay');
+const cycBirthYearSelect = document.getElementById('cycBirthYear');
+const cycCalculateBtn = document.getElementById('cycCalculateBtn');
+
 let translations = null;
 let currentLang = localStorage.getItem('numeros-language') || 'en';
 let currentResult = null;
@@ -235,6 +248,12 @@ function setLanguage(lang) {
     lifePathText.textContent = t('lifePathSummaryText', 'Your life path reveals your mission.');
   } else {
     displayResult(currentResult);
+  }
+
+  // Refresh cycles tab if visible
+  const cyclesPanel = document.getElementById('tabPanelCycles');
+  if (cyclesPanel && !cyclesPanel.hidden) {
+    renderCycles();
   }
 }
 
@@ -576,6 +595,11 @@ function handleSubmit(event) {
       personality,
     };
 
+    // Save birthdate to localStorage for cycles tab
+    localStorage.setItem('numeros-birth-month', month);
+    localStorage.setItem('numeros-birth-day', day);
+    localStorage.setItem('numeros-birth-year', year);
+
     displayResult(result);
   }, 900);
 }
@@ -585,8 +609,194 @@ function toggleLanguage() {
   setLanguage(nextLang);
 }
 
+// ===== Tab Switching =====
+function switchTab(tabId) {
+  // Update buttons
+  tabBtns.forEach((btn) => {
+    const isActive = btn.dataset.tab === tabId;
+    btn.classList.toggle('is-active', isActive);
+    btn.setAttribute('aria-selected', isActive);
+  });
+
+  // Update panels
+  tabPanels.forEach((panel) => {
+    const isActive = panel.dataset.tab === tabId;
+    panel.classList.toggle('is-active', isActive);
+    panel.hidden = !isActive;
+  });
+
+  // Render cycles when switching to cycles tab
+  if (tabId === 'cycles') {
+    renderCycles();
+  }
+}
+
+// ===== Current Cycles =====
+function getCycleMeaning(number) {
+  const meanings = t('cycMeanings', {});
+  if (meanings && meanings[number]) {
+    return meanings[number][currentLang] || meanings[number].en || '';
+  }
+  return '';
+}
+
+function populateCyclesDateSelects() {
+  const months = t('months', []);
+  const monthPlaceholder = t('monthPlaceholder', 'Month');
+  const dayPlaceholder = t('dayPlaceholder', 'Day');
+  const yearPlaceholder = t('yearPlaceholder', 'Year');
+
+  cycBirthMonthSelect.innerHTML = `<option value="" disabled>${monthPlaceholder}</option>` + months
+    .map((month, index) => `<option value="${index + 1}">${month}</option>`)
+    .join('');
+  cycBirthDaySelect.innerHTML = `<option value="" disabled>${dayPlaceholder}</option>` + Array.from({ length: 31 }, (_, index) => `<option value="${index + 1}">${index + 1}</option>`).join('');
+
+  const currentYearValue = new Date().getFullYear();
+  cycBirthYearSelect.innerHTML = `<option value="" disabled>${yearPlaceholder}</option>` + Array.from({ length: 130 }, (_, index) => {
+    const year = currentYearValue + 1 - index;
+    return `<option value="${year}">${year}</option>`;
+  }).join('');
+}
+
+function renderCycles() {
+  const now = new Date();
+  const currentYear = now.getFullYear();
+  const currentMonth = now.getMonth() + 1;
+  const currentDay = now.getDate();
+
+  // Format today's date
+  const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+  const formattedDate = now.toLocaleDateString(currentLang === 'vi' ? 'vi-VN' : 'en-US', dateOptions);
+  cycDate.textContent = t('cycToday', 'Today: {date}').replace('{date}', formattedDate);
+
+  // Populate the cycles date selects
+  populateCyclesDateSelects();
+
+  // Pre-fill from localStorage if available
+  const savedMonth = localStorage.getItem('numeros-birth-month');
+  const savedDay = localStorage.getItem('numeros-birth-day');
+  const savedYear = localStorage.getItem('numeros-birth-year');
+
+  if (savedMonth && savedDay && savedYear) {
+    cycBirthMonthSelect.value = savedMonth;
+    cycBirthDaySelect.value = savedDay;
+    cycBirthYearSelect.value = savedYear;
+    // Auto-calculate if we have saved data
+    calculateAndDisplayCycles(Number(savedMonth), Number(savedDay));
+  } else {
+    // Clear results, show empty state
+    cyclesContent.innerHTML = '';
+    cyclesContent.hidden = false;
+  }
+}
+
+function calculateAndDisplayCycles(birthMonth, birthDay) {
+  const now = new Date();
+  const currentYear = now.getFullYear();
+  const currentMonth = now.getMonth() + 1;
+  const currentDay = now.getDate();
+
+  // Calculate Personal Year = reduce(birth month + birth day + current year)
+  const pySum = birthMonth + birthDay + currentYear;
+  const pyReduced = reduceToSingleDigit(pySum);
+
+  // Calculate Personal Month = reduce(personal year + current month)
+  const pmSum = pyReduced + currentMonth;
+  const pmReduced = reduceToSingleDigit(pmSum);
+
+  // Calculate Personal Day = reduce(personal month + current day)
+  const pdSum = pmReduced + currentDay;
+  const pdReduced = reduceToSingleDigit(pdSum);
+
+  const pyMeaning = getCycleMeaning(pyReduced);
+  const pmMeaning = getCycleMeaning(pmReduced);
+  const pdMeaning = getCycleMeaning(pdReduced);
+
+  const cycFormulaYear = t('cycFormulaYear', '{month} (birth month) + {day} (birth day) + {year} (current year) = {sum} → {reduced}');
+  const cycFormulaMonth = t('cycFormulaMonth', '{py} (personal year) + {month} (current month) = {sum} → {reduced}');
+  const cycFormulaDay = t('cycFormulaDay', '{pm} (personal month) + {day} (current day) = {sum} → {reduced}');
+
+  cyclesContent.innerHTML = `
+    <div class="cyc-grid">
+      <div class="cyc-item">
+        <div class="cyc-item__head">
+          <p class="cyc-item__label">${t('cycPersonalYear', 'Personal Year')}</p>
+          <span class="cyc-item__value">${pyReduced}</span>
+        </div>
+        <p class="cyc-item__formula">${cycFormulaYear
+          .replace('{month}', birthMonth)
+          .replace('{day}', birthDay)
+          .replace('{year}', currentYear)
+          .replace('{sum}', pySum)
+          .replace('{reduced}', pyReduced)}</p>
+        <p class="cyc-item__meaning">${pyMeaning}</p>
+      </div>
+      <div class="cyc-item">
+        <div class="cyc-item__head">
+          <p class="cyc-item__label">${t('cycPersonalMonth', 'Personal Month')}</p>
+          <span class="cyc-item__value">${pmReduced}</span>
+        </div>
+        <p class="cyc-item__formula">${cycFormulaMonth
+          .replace('{py}', pyReduced)
+          .replace('{month}', currentMonth)
+          .replace('{sum}', pmSum)
+          .replace('{reduced}', pmReduced)}</p>
+        <p class="cyc-item__meaning">${pmMeaning}</p>
+      </div>
+      <div class="cyc-item">
+        <div class="cyc-item__head">
+          <p class="cyc-item__label">${t('cycPersonalDay', 'Personal Day')}</p>
+          <span class="cyc-item__value">${pdReduced}</span>
+        </div>
+        <p class="cyc-item__formula">${cycFormulaDay
+          .replace('{pm}', pmReduced)
+          .replace('{day}', currentDay)
+          .replace('{sum}', pdSum)
+          .replace('{reduced}', pdReduced)}</p>
+        <p class="cyc-item__meaning">${pdMeaning}</p>
+      </div>
+    </div>
+  `;
+  cyclesContent.hidden = false;
+}
+
+function handleCyclesCalculate() {
+  const month = Number(cycBirthMonthSelect.value);
+  const day = Number(cycBirthDaySelect.value);
+  const year = Number(cycBirthYearSelect.value);
+
+  if (!month || !day || !year) {
+    window.alert(t('alerts.missingFields', 'Please provide your full birth name and birth date.'));
+    return;
+  }
+
+  const lastDayOfMonth = new Date(year, month, 0).getDate();
+  if (day > lastDayOfMonth) {
+    window.alert(t('alerts.invalidDate', 'Please choose a valid calendar date.'));
+    return;
+  }
+
+  // Save to localStorage
+  localStorage.setItem('numeros-birth-month', month);
+  localStorage.setItem('numeros-birth-day', day);
+  localStorage.setItem('numeros-birth-year', year);
+
+  calculateAndDisplayCycles(month, day);
+}
+
+// ===== Event Listeners =====
 form.addEventListener('submit', handleSubmit);
 langToggle.addEventListener('click', toggleLanguage);
+
+// Tab click handlers
+tabBtns.forEach((btn) => {
+  btn.addEventListener('click', () => {
+    switchTab(btn.dataset.tab);
+  });
+});
+
+// Cycles calculate button
+cycCalculateBtn.addEventListener('click', handleCyclesCalculate);
 
 createStars();
 loadTranslations();
